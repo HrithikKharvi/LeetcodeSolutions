@@ -1,20 +1,66 @@
 /**
  * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
  * }
  */
-class Solution {
-    public List<Integer> rightSideView(TreeNode root) {
-        
-    }
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var rightSideView = function(root) {
+    let list = [];
+    rightView(root, list, 0, 0);
+    return list;
 }
+
+var rightView = function(root, list, currentLevel, maxLevel) {
+    if (!root) return maxLevel;
+
+    // console.log(currentLevel, "->", maxLevel, " d =", root.val)
+
+    if (currentLevel + 1 > maxLevel) {
+      list.push(root.val);
+      maxLevel = currentLevel + 1;
+    }
+    maxLevel = rightView(root.right, list, currentLevel + 1, maxLevel);
+    maxLevel = rightView(root.left, list, currentLevel + 1, maxLevel);
+
+    return maxLevel;
+  }
+
+//     if (root == null) {
+//     return [];
+//   }
+
+//   let queue = [root];
+//   let list = [];
+//   let count = 1;
+//   let currentCount = 0;
+//   list.push(root.val);
+
+//   while (queue.length) {
+//     let currentElement = queue.shift();
+//     currentCount++;
+
+//     if (currentElement.left) {
+//       queue.push(currentElement.left);
+//     }
+
+//     if (currentElement.right) {
+//       queue.push(currentElement.right);
+//     }
+
+//     if (count == currentCount) {
+//       count = queue.length;
+//       currentCount = 0;
+//       if (queue.length)
+//         list.push(queue[queue.length - 1].val);
+//     }
+
+//   }
+
+//   return list;
+// };
