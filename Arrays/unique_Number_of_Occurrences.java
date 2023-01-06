@@ -20,3 +20,31 @@ class Solution {
         return true;
     }
 }
+
+//Space optimized solution
+
+// class Solution {
+//     public boolean uniqueOccurrences(int[] arr) {
+//         Arrays.sort(arr);
+//         Set<Integer> set = new HashSet<>();
+
+//         int prev = 0;
+//         int count = 0;
+//         for(int a : arr){
+//           if(a != prev){
+//             if(set.contains(count))return false;
+//             else{
+//               set.add(count);
+//               count = 1;
+//               prev = a;
+//             }
+//           }else{
+//             count++;
+//           }
+//         }
+
+//         if(set.contains(count))return false;
+
+//         return true;
+//     }
+// }
