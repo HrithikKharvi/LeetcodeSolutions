@@ -1,21 +1,27 @@
+/*
+*THIS ALGORITHM TAKES O(N^2) TIME COMPLEXITY
+*THIS APPROCH TAKES O(1) SPACE COMPLEXITY
+*/
+
 class Solution {
     public void rotate(int[][] matrix) {
-      int wall = matrix[0].length - 1;
-      int[][] result = new int[matrix.length][matrix[0].length];
+      if(matrix.length == 0 || matrix.length != matrix[0].length)return;
 
-      for(int i=0; i< matrix.length; i++){
-        for(int j=0; j< matrix[0].length; j++){
-          result[i][j] = matrix[i][j];
+      for(int layer=0; layer < matrix.length/2; layer++){
+        int first = layer;
+        int end = matrix.length - 1 - layer;
+
+        for(int i=first; i<end; i++){
+          int offset = i - first;
+
+          int top = matrix[first][i];
+
+          matrix[first][i] = matrix[end - offset][first];
+          matrix[end-offset][first] = matrix[end][end-offset];
+          matrix[end][end-offset] = matrix[i][end];
+          matrix[i][end] = top;
         }
       }
 
-        for(int i=0; i< matrix.length; i++){
-          int targetCol = wall - i;
-          for(int j=0; j< matrix[0].length; j++){
-            int targetRow = j;
-
-            matrix[targetRow][targetCol] = result[i][j];
-          }
-        }
     }
 }
