@@ -13,20 +13,8 @@ class Solution {
       int length = findLength(head);
 
       int numbersToFill = (length / k);
-      int[] countArray = new int[k];
-
-      for(int i=0; i<k; i++){
-        countArray[i] = numbersToFill;
-      }
 
       int rem = length % k;
-      int i = 0;
-
-      while(rem > 0){
-
-        countArray[i++]++;
-        rem--;
-      }
 
       ListNode currentNode = head;
       ListNode currentListHead = null;
@@ -36,13 +24,24 @@ class Solution {
       ListNode[] result = new ListNode[k];
       ListNode prevNode = null;
 
+      int end = numbersToFill;
+      if(rem > 0){
+        end++;
+        rem--;
+      }
       while(currentNode != null){
-        if(count == countArray[index]){
+        if(count == end){
           result[index++] = currentListHead;
           if(prevNode != null)prevNode.next = null;
           currentListHead = null;
           currentListTail = null;
           count = 0;
+
+          end = numbersToFill;
+          if(rem > 0){
+            end++;
+            rem--;
+          }
         }else if(count == 0){
           prevNode = currentNode;
           currentListHead = currentNode;
